@@ -33,7 +33,7 @@ bool app_is_valid(uint32_t app_start)
         return false;
     }
 
-    if (reset_handler > FLASH_BASE || reset_handler < FLASH_END_ADDR)
+    if (reset_handler < FLASH_BASE || reset_handler > FLASH_END_ADDR)
     {
         return false;
     }
