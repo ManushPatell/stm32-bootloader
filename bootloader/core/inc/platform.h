@@ -109,13 +109,14 @@ Power On → Bootloader runs → Primary app corrupted!
 
 /* ========= STM32F446RE Memory Layout (512KB Flash) ======= */
 
-// Flash Base Addresses
-#define FLASH_BASE 0x08000000UL
 #define SRAM_BASE 0x20000000UL
 #define SYSTEM_MEMORY_BASE 0x1FFF0000UL
+#define SRAM_END_ADDR 0x2001FFFF
 
 // Flash geometry
+#define FLASH_BASE 0x08000000UL
 #define FLASH_TOTAL_SIZE (512UL * 1024UL)
+#define FLASH_END_ADDR (FLASH_BASE + FLASH_TOTAL_SIZE - 1)
 
 // Bootloader
 #define BOOTLOADER_START_ADDR 0x08000000UL

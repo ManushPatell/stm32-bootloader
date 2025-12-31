@@ -12,3 +12,31 @@
  *
  * MCU-independent logic lives here
  */
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "../inc/platform.h"
+
+/*
+An app is considered valid if jumping to its Reset_Handler does not crash the CPU
+all the CRC, firmware headers, and versions are extra safety
+
+*/
+
+bool app_is_valid(uint32_t app_start)
+{
+    uint32_t stack_pointer = *(uint32_t *)app_start;
+    uint32_t reset_handler = *(uint32_t *)(app_start + 4);
+
+    if (stack_pointer < SRAM_BASE || stack_pointer > SRAM_END_ADDR)
+    {
+        return false;
+    }
+
+    if (reset_handler > FLASH_BASE || reset_handler < FLASH_END_ADDR)
+    {
+        return false;
+    }
+
+    return true;
+}
