@@ -40,3 +40,19 @@ bool app_is_valid(uint32_t app_start)
 
     return true;
 }
+
+/*
+FLASH (code)
+0x08000000 ───────────────┐
+                          │ bootloader
+                          │ app
+                          │ reset handler
+0x0807FFFF ───────────────┘
+
+SRAM (data)
+0x20000000 ───────────────┐
+                          │ stack
+                          │ heap
+                          │ globals
+0x2001FFFF ───────────────┘
+*/
