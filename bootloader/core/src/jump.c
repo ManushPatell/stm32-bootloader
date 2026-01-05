@@ -13,9 +13,10 @@
  */
 
 #include <stdint.h>
-#include "../Drivers/CMSIS/Include/core_cm4.h"
+#include "stm32f446xx.h"
+#include "jump.h"
 
-#define APP1_START()
+#define APP1_START
 #define APP2_START
 
 void jump_to_application(uint32_t app_start_addr)
