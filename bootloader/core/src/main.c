@@ -14,6 +14,7 @@
 
 #include "bootloader.h"
 #include "platform.h"
+#include "jump.h"
 
 int main(void)
 {
@@ -28,15 +29,15 @@ int main(void)
         bootloader_run();
     }
 
-    if (is_primary_app_valid())
+    if (app_is_valid(PRIMARY_APP_START_ADDR))
     {
-        jump_to_application(PRIMARY_APP); // Run main app
+        jump_to_application(PRIMARY_APP_START_ADDR); // Run main app
     }
 
-    if (is_secondary_app_valid())
+    if (app_is_valid(SECONDARY_APP_START_ADDR))
     {
         copy_secondary_to_primary();
-        jump_to_application(PRIMARY_APP);
+        jump_to_application(SECONDARY_APP_START_ADDR);
     }
 
     // should never reach here
