@@ -41,6 +41,18 @@ bool app_is_valid(uint32_t app_start)
     return true;
 }
 
+bool bootloader_should_enter()
+{
+    // check button, flag, GPIO, etc.
+
+    return false;
+}
+
+void bootloader_run(void)
+{
+    // UART update logic (later)
+}
+
 /*
 FLASH (code)
 0x08000000 ───────────────┐
