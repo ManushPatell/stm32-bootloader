@@ -1,6 +1,6 @@
 // platform.c
 #include "platform.h"
-#include "stm32f4xx.h"
+#include "stm32f446xx.h"
 
 /*
  * Platform-level initialization
@@ -9,8 +9,13 @@
  */
 void platform_init(void)
 {
-    // Optional: enable GPIO clocks if you use LEDs / buttons
-    // RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    // Turn on power to GPIOA
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 
-    // Optional: basic delay source
+    // Configure pin PA5 as an output (LED pin)
+    GPIOA->MODER &= ~(3U << (5 * 2));
+    GPIOA->MODER |= (1U << (5 * 2));
+
+    GPIOA->ODR ^= (1 << 5);   // toggle LED
+    GPIOA->ODR &= ~(1U << 5); // LED OFF
 }

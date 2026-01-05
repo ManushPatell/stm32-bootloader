@@ -143,4 +143,7 @@ Power On → Bootloader runs → Primary app corrupted!
 
 // Send an error
 
+void platform_init(void);
+void blink_error_led(void);
+
 #endif /* PLATFORM_H */
