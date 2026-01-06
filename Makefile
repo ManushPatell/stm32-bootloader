@@ -25,7 +25,7 @@ CFLAGS += -O0 -g
 CFLAGS += -Wall -ffreestanding -fno-builtin
 CFLAGS += -DSTM32F446xx
 
-LDFLAGS = -T bootloader/linker/STM32F446_bootloader.ld
+LDFLAGS = -T bootloader/core/linker/STM32F446_BOOT.ld
 LDFLAGS += -nostartfiles -Wl,--gc-sections
 
 # ============================
@@ -44,7 +44,10 @@ bootloader/core/src/main.c \
 bootloader/core/src/bootloader.c \
 bootloader/core/src/flash_if.c \
 bootloader/core/src/jump.c \
+bootloader/core/src/platform.c \
 bootloader/startup/startup_stm32f446xx.s
+SRCS += bootloader/core/src/system_stm32f4xx.c
+
 
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
 OBJS := $(OBJS:%.s=$(BUILD)/%.o)
@@ -60,10 +63,18 @@ $(BUILD)/%.o: %.c
 
 $(BUILD)/%.o: %.s
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -x assembler-with-cpp -c $< -o $@
+
+$(BUILD)/bootloader/startup/startup_stm32f446xx.o: bootloader/startup/startup_stm32f446xx.s
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -x assembler-with-cpp -c $< -o $@
+
 
 $(BUILD)/$(TARGET).elf: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) \
+	-nostdlib -nostartfiles \
+	-o $@
+
 
 $(BUILD)/$(TARGET).bin: $(BUILD)/$(TARGET).elf
 	$(OBJCOPY) -O binary $< $@
