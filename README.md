@@ -1,4 +1,4 @@
-# STM32 Bootloader (STM32F446RE)
+# STM32 Bootloader 
 
 This repository contains a **custom flash-resident bootloader** for the **STM32F446RE** microcontroller.  
 The bootloader executes immediately after reset and acts as the system’s first layer of control, responsible for validating firmware, managing flash operations, and safely transferring execution to the main application.
