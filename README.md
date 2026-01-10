@@ -12,16 +12,10 @@ The design prioritizes **reliability, fault tolerance, and low-level control**, 
 - **Configurable application flash region**
 - **Flash erase and programming routines**
 - **Post-program flash verification**
-- **Checksum-based firmware integrity validation**
 - **Flash protection management**
   - Read/write protection checks
   - Enable/disable write protection as required
 - **Fail-safe design with extended error handling**
-- **Bootloader self-update support**
-- **Software-controlled entry into ST’s built-in ROM bootloader**
-  - Jump to the system bootloader without using the BOOT pin
-- **Serial trace output over SWO**
-  - Simplifies debugging and development
 - **Designed for portability**
   - Easily adaptable to other STM32 families or Cortex-M MCUs
 
@@ -109,8 +103,6 @@ Before transferring control to the application, the bootloader performs multiple
 - **Reset Handler Validation**
   - Must lie within the application flash region
   - Must be correctly aligned
-- **Checksum Verification**
-  - Detects corrupted or partially programmed firmware
 - **Boundary Enforcement**
   - Prevents flash operations outside the application region
 
