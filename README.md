@@ -1,5 +1,7 @@
 # STM32 Bootloader 
 
+## Look at my website for a better summary about this bootloader: https://manushpatell.github.io/manush-portfolio/#/projects/stm32-bootloader
+
 This repository contains a **custom flash-resident bootloader** for the **STM32F446RE** microcontroller.  
 The bootloader executes immediately after reset and acts as the system’s first layer of control, responsible for validating firmware, managing flash operations, and safely transferring execution to the main application.
 
